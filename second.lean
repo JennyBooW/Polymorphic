@@ -73,3 +73,25 @@ instance [Add α] : HPlus α α α where
   hPlus := Add.add
 
 #eval HPlus.hPlus (1 : Nat) (10 : Nat)
+
+-- Exercises
+--  HMul (PPoint α) α (PPoint α) that multiplies both projections by the scalar.
+
+structure Point (α : Type) where
+  x : α
+  y : α
+deriving Repr
+
+instance (α : Type) [Add α] : HAdd (Point α) α (Point α) where
+  hAdd (p : Point α) (n : α) : Point α :=
+    {x := p.x + n, y := p.y + n}
+
+instance (α : Type) [Mul α] : HMul (Point α) α (Point α) where
+  hMul (p : Point α) (n : α) : Point α :=
+    {x := p.x * n, y := p.y * n}
+
+
+def point : Point Nat := {x := 10, y := 10}
+
+#eval point * 10
+open Positive
