@@ -82,6 +82,7 @@ structure Point (α : Type) where
   y : α
 deriving Repr
 
+
 instance (α : Type) [Add α] : HAdd (Point α) α (Point α) where
   hAdd (p : Point α) (n : α) : Point α :=
     {x := p.x + n, y := p.y + n}
@@ -89,10 +90,6 @@ instance (α : Type) [Add α] : HAdd (Point α) α (Point α) where
 instance (α : Type) [Mul α] : HMul (Point α) α (Point α) where
   hMul (p : Point α) (n : α) : Point α :=
     {x := p.x * n, y := p.y * n}
-
-instance (α : Type) (β : Type) [HAdd α β] : HMul (Point α) β (Point (α ⊕ β)) where
-  hMul (p : Point α) (s : β) : Point (α ⊕ β) :=
-    { x := (p.x + s).toLeft, y := (p.y + s).toLeft }
 
 def point : Point Nat := {x := 10, y := 10}
 
